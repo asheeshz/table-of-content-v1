@@ -1,0 +1,133 @@
+/* =====================================
+   TOC और हाइलाइट स्टाइल्स v3.2 (Namespaced)
+   विवरण: थीम टकराव से बचने के लिए #toc-container से नेम्सपेस्ड
+   ===================================== */
+
+/* --- रंग वेरिएबल्स (इस मॉड्यूल के लिए विशिष्ट) --- */
+/* :root सेलेक्टर यहाँ अनावश्यक है क्योंकि ये वेरिएबल्स केवल
+   #toc-container या ग्लोबल हाइलाइट रूल्स द्वारा उपयोग किए जाएंगे।
+   लेकिन स्पष्टता के लिए इन्हें रखना ठीक है। */
+:root {
+  --toc-bg-start: #fff0f5;         /* लैवेंडर ब्लश */
+  --toc-bg-end: #fffacd;           /* लेमन शिफॉन */
+  --toc-border: #ffb6c1;          /* लाइट पिंक */
+  --toc-shadow: rgba(255, 105, 180, 0.15); /* गुलाबी टिंट शैडो */
+  --toc-title-color: #c71585;      /* मीडियम वायलेट रेड */
+  --toc-title-border: #dc143c;     /* क्रिमसन */
+  --toc-column-rule: #90ee90;      /* लाइट ग्रीन */
+  --toc-list-gradient-1: rgba(255, 192, 203, 0.4); /* हल्का गुलाबी */
+  --toc-list-gradient-2: rgba(255, 255, 224, 0.5); /* हल्का पीला */
+  --toc-list-gradient-3: rgba(144, 238, 144, 0.4); /* हल्का हरा */
+  --toc-list-hover-bg: rgba(255, 99, 71, 0.15); /* टॉमेटो टिंट */
+  --toc-list-hover-text: #d2691e;   /* चॉकलेट */
+  --toc-h3-indicator: #ffd700;     /* गोल्ड */
+  --toc-h3-bg: rgba(255, 215, 0, 0.05);
+  --toc-h3-hover-bg: rgba(255, 215, 0, 0.15);
+  --toc-h3-hover-indicator: #ffa500; /* ऑरेंज */
+  --toc-link-color: #006400;       /* डार्क ग्रीन */
+  --highlight-bg: #fffacd;         /* लेमन शिफॉन */
+  --highlight-border: #ffc400;     /* गोल्ड */
+  --highlight-pulse-glow: rgba(255, 196, 0, 0.4);
+  --content-highlight-bg: #fff9e6; /* बहुत हल्का पीच/गोल्ड */
+  --button-bg-start: #ff7f50;      /* कोरल */
+  --button-bg-end: #ff6347;        /* टॉमेटो */
+  --button-border: #e5533d;        /* गहरा टॉमेटो */
+  --button-glow: rgba(255, 99, 71, 0.7); /* बटन ग्लो रंग */
+}
+
+/* --- एनिमेशन्स (इस मॉड्यूल के लिए विशिष्ट) --- */
+@keyframes tocFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes tocGradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes buttonPulseGlow { 0%{box-shadow:0 0 6px var(--button-glow), 0 0 12px var(--button-glow);transform:scale(1)} 50%{box-shadow:0 0 12px var(--button-glow), 0 0 24px var(--button-glow), 0 0 36px var(--button-glow);transform:scale(1.03)} 100%{box-shadow:0 0 6px var(--button-glow), 0 0 12px var(--button-glow);transform:scale(1)} }
+@keyframes highlightPulse { 0%{box-shadow:0 0 0 2px var(--highlight-border), 0 0 0 4px var(--highlight-pulse-glow);background-color:var(--highlight-bg);transform:scale(1)} 50%{box-shadow:0 0 0 4px var(--highlight-border), 0 0 0 8px var(--highlight-pulse-glow);background-color:#fff59d;transform:scale(1.01)} 100%{box-shadow:0 0 0 2px var(--highlight-border), 0 0 0 4px var(--highlight-pulse-glow);background-color:var(--highlight-bg);transform:scale(1)} }
+
+/* --- TOC Container Wrapper (Namespace) --- */
+#toc-container {
+  margin-top: 25px;
+  margin-bottom: 30px;
+  clear: both;
+  position: relative;
+}
+
+/* --- TOC Toggle Button --- */
+#toc-container #toc-toggle-button {
+  display: block; width: 100%; box-sizing: border-box; padding: 8px 25px;
+  font-size: 1.05em; font-weight: 600; letter-spacing: 0.5px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center; cursor: pointer;
+  background: linear-gradient(140deg, var(--button-bg-start), var(--button-bg-end));
+  color: #ffffff; border: 1px solid var(--button-border); border-radius: 8px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease, border-radius 0.2s ease;
+  position: relative; overflow: hidden;
+}
+#toc-container #toc-toggle-button.toc-closed-effect { animation: buttonPulseGlow 2s infinite ease-in-out; }
+#toc-container #toc-toggle-button:hover { background: linear-gradient(140deg, var(--button-bg-end), var(--button-bg-start)); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); transform: translateY(-2px); }
+#toc-container #toc-toggle-button::before { content: ''; position: absolute; top: 0; left: -120%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent); transform: skewX(-25deg); transition: left 0.8s ease-in-out; }
+#toc-container #toc-toggle-button:hover::before { left: 150%; }
+#toc-container.toc-is-shown #toc-toggle-button { border-bottom-left-radius: 0; border-bottom-right-radius: 0; animation: none; /* खुला होने पर पल्स बंद करें */ }
+
+/* --- TOC Box (Collapsible Area) --- */
+#toc-container #toc {
+  max-height: 0; opacity: 0; overflow: hidden; margin: 0; padding: 0 22px;
+  border: 2px solid var(--toc-border); border-top: none; border-radius: 0 0 8px 8px;
+  background: linear-gradient(135deg, var(--toc-bg-start), var(--toc-bg-end));
+  box-shadow: 0 4px 12px var(--toc-shadow);
+  transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in-out 0.15s, padding-top 0.7s cubic-bezier(0.4, 0, 0.2, 1), padding-bottom 0.7s cubic-bezier(0.4, 0, 0.2, 1), border-width 0.1s ease-in-out 0.6s;
+}
+#toc-container #toc.toc-visible { max-height: 2000px; opacity: 1; padding-top: 20px; padding-bottom: 20px; border-width: 0 2px 2px 2px; }
+
+/* --- TOC Title --- */
+#toc-container #toc h2 {
+  font-size: 1.25em; margin-top: 0; margin-bottom: 20px; padding-bottom: 12px;
+  border-bottom: 2px dashed var(--toc-title-border); color: var(--toc-title-color);
+  font-weight: 700; text-align: center; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  column-span: all; -webkit-column-span: all;
+  animation: tocFadeIn 0.6s ease-out 0.2s backwards;
+}
+
+/* --- TOC List (UL) --- */
+#toc-container #toc ul {
+  list-style-type: none; padding-left: 0; margin: 0; column-count: 2; column-gap: 30px;
+  column-rule: 1px dotted var(--toc-column-rule);
+  background: linear-gradient(90deg, var(--toc-list-gradient-1) 0%, var(--toc-list-gradient-2) 48%, var(--toc-list-gradient-2) 52%, var(--toc-list-gradient-3) 100%);
+  background-size: 250% 100%; animation: tocGradientShift 20s linear infinite alternate;
+  border-radius: 5px; padding: 12px 8px;
+}
+
+/* --- TOC List Items (LI) --- */
+#toc-container #toc li { margin-bottom: 8px; line-height: 1.4; break-inside: avoid; -webkit-column-break-inside: avoid; page-break-inside: avoid; position: relative; }
+
+/* --- TOC Hierarchical Indentation (H3) --- */
+#toc-container #toc li.toc-level-3 { margin-left: 10px; padding-left: 15px; border-left: 3px solid var(--toc-h3-indicator); background-color: var(--toc-h3-bg); border-radius: 4px; transition: background-color 0.3s ease, border-color 0.3s ease; }
+#toc-container #toc li.toc-level-3:hover { background-color: var(--toc-h3-hover-bg); border-left-color: var(--toc-h3-hover-indicator); }
+#toc-container #toc li.toc-level-3 a { font-size: 0.95em; }
+
+/* --- TOC Links (A) --- */
+#toc-container #toc a { text-decoration: none; color: var(--toc-link-color); transition: color 0.25s ease, transform 0.25s ease, background-color 0.3s ease, box-shadow 0.3s ease; display: flex; align-items: center; padding: 8px 12px; border-radius: 4px; font-weight: 500; position: relative; overflow: hidden; }
+#toc-container #toc a:hover { color: var(--toc-list-hover-text) !important; background-color: var(--toc-list-hover-bg); box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); transform: translateX(4px) scale(1.01); }
+
+/* --- Font Awesome Icon Styling --- */
+#toc-container #toc a i[class*="fa-"] { margin-right: 12px; font-size: 1.15em; width: 1.3em; text-align: center; transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55), color 0.3s ease; flex-shrink: 0; }
+#toc-container #toc a:hover i[class*="fa-"] { transform: rotate(10deg) scale(1.2); }
+/* रंगीन आइकन */
+#toc-container #toc li:nth-child(5n+1) a i { color: #1e90ff; }
+#toc-container #toc li:nth-child(5n+2) a i { color: #32cd32; }
+#toc-container #toc li:nth-child(5n+3) a i { color: #ff4500; }
+#toc-container #toc li:nth-child(5n+4) a i { color: #8a2be2; }
+#toc-container #toc li:nth-child(5n+5) a i { color: #ff69b4; }
+
+/* --- Highlight Styles (ये ग्लोबल रहेंगे) --- */
+.highlight-target { background-color: var(--highlight-bg) !important; box-shadow: 0 0 0 2px var(--highlight-border) !important; border-radius: 5px !important; padding: 4px 8px !important; margin: 0 !important; animation: highlightPulse 1.6s infinite ease-in-out !important; color: #8b4513 !important; display: inline-block !important; width: auto !important; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.highlight-content { background-color: var(--content-highlight-bg) !important; transition: background-color 0.4s ease-in-out !important; border-radius: 5px !important; padding: 12px 18px !important; margin-top: 8px !important; margin-bottom: 8px !important; box-shadow: 0 2px 8px rgba(218, 165, 32, 0.15) !important; display: block !important; }
+
+/* --- प्रतिक्रियात्मक समायोजन --- */
+@media(max-width: 768px) {
+    #toc-container #toc ul { column-count: 1; column-rule: none; animation-play-state: paused; }
+    #toc-container #toc { padding: 15px; }
+    #toc-container #toc h2 { font-size: 1.15em; }
+    #toc-container #toc li.toc-level-3 { margin-left: 5px; padding-left: 12px; }
+    #toc-container #toc a { padding: 6px 10px; }
+}
+
+/* ===== TOC और हाइलाइट स्टाइल्स v3.2 (Namespaced) - END ===== */
