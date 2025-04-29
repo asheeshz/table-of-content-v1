@@ -1,12 +1,395 @@
+/* ======================================== */
+/* === Widget 1: Unique Circle Menu CSS === */
+/* ======================================== */
+
+/* --- Widget Container (Namespace) --- */
+/* Ensure the unique ID is present on the main container in your HTML */
+#my-unique-circle-menu {
+  font-family: Arial, sans-serif; /* Basic font, can be overridden by theme */
+  position: relative; /* Needed for absolute positioning of menus inside */
+}
+
+/* --- Main Menu Icon/Toggle --- */
+#my-unique-circle-menu .circle-menu-container {
+  position: fixed; /* Or absolute/relative depending on desired placement */
+  top: 10px; /* Example position */
+  left: 85%; /* Example position */
+  transform: translateX(-50%);
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+#my-unique-circle-menu .menu-toggle {
+  width: 60px;
+  height: 60px;
+  background-image: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCbarYqIlzfRqB0VbKZvHmwyyPtvU0Y2Nkv1izHDcL_tlX1A6d3u8KtV85jfUhqqZcsUDKds1yQDDn6p_MJbM_wec1tyUHOw50hsTHKlpVzeEfhZR_gkFsL_O4OG0zytlGbKUlJaRQPSDfx7SAqI4D6B_SnWzxSQ-lWz3ld38THUIYWdDwsXE7bBuJx7EN/s374/IMG_20250404_055208.png');
+  background-size: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative; /* Ensure it's a positioning context */
+  z-index: 1001; /* Above the menus when closed */
+}
+
+#my-unique-circle-menu .menu-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Sub-Category Menu (Grid) --- */
+#my-unique-circle-menu .menu-categories {
+  position: absolute;
+  top: 80px; /* Position below the toggle */
+  left: 50%; /* Center relative to the toggle's container */
+  transform: translateX(-50%) scale(0); /* Start scaled down and centered */
+  transform-origin: top center; /* Scale from top center */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  width: 310px; /* Fixed width for grid */
+  background-color: rgba(40, 40, 40, 0.95); /* Slightly transparent dark bg */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 12px 8px 8px 8px; /* Add top padding */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0s linear 0.4s; /* Delay visibility hide */
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000; /* Below the toggle when closed */
+}
+
+#my-unique-circle-menu .menu-categories.active {
+  transform: translateX(-50%) scale(1); /* Scale up when active */
+  opacity: 1;
+  visibility: visible;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0s linear 0s; /* Show visibility immediately */
+}
+
+/* --- Category Title (Inside Categories Menu) --- */
+#my-unique-circle-menu .menu-categories .category-title {
+  font-size: 1.1em; /* Slightly smaller */
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  color: #fff;
+  /* border-bottom: 1px solid #555; */ /* Removed border */
+  display: none; /* Initially hidden, shown by JS */
+  grid-column: 1 / -1; /* Span all columns */
+  animation: zoomIn 0.5s ease-out forwards; /* Ensure it stays visible */
+  background-size: 200% auto;
+  transition: background-position 0.5s ease;
+  cursor: default; /* Not clickable */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 6px; /* Space below title */
+  /* Gradient background applied via JS/CSS classes */
+}
+
+/* Gradient Background Styles for category titles */
+/* (These remain the same as your provided styles) */
+#my-unique-circle-menu .menu-categories .category-title.gradient-1 { background-image: linear-gradient(135deg, #e74c3c 0%, #e74c3c 10%, #e67e22 10%, #e67e22 20%, #f1c40f 20%, #f1c40f 30%, #2ecc71 30%, #2ecc71 40%, #1abc9c 40%, #1abc9c 50%, #3498db 50%, #3498db 60%, #2980b9 60%, #2980b9 70%, #9b59b6 70%, #9b59b6 80%, #e91e63 80%, #e91e63 90%, #34495e 90%, #34495e 100%); }
+#my-unique-circle-menu .menu-categories .category-title.gradient-2 { background-image: linear-gradient(90deg, #3366ff, #cc3399, #ff3366, #ff6600, #ffff33); }
+/* ... (rest of your gradient classes) ... */
+#my-unique-circle-menu .menu-categories .category-title.gradient-12 { background-image: linear-gradient(90deg, #cc3399, #ff3366, #ff6600, #ffff33, #3366ff); }
+
+
+/* Gradient Animation on Hover for category titles */
+#my-unique-circle-menu .menu-categories .category-title:hover {
+    background-position: right center; /* Animate gradient on hover */
+}
+
+/* Keyframes (Global scope is fine) */
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeInUp {
+    from { transform: translateY(15px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes Gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Category Icons --- */
+#my-unique-circle-menu .menu-categories .category {
+    width: 68px;   /* Maintain size */
+    height: 68px;  /* Maintain size */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #333;
+    font-size: 1.1em; /* Slightly larger icon */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Ensure image fits */
+}
+
+#my-unique-circle-menu .menu-categories .category img {
+    width: 85%; /* Adjust image size within circle */
+    height: 85%;
+    object-fit: cover; /* Or contain, depending on image aspect ratio */
+    border-radius: 50%;
+}
+
+#my-unique-circle-menu .menu-categories .category:hover {
+    transform: translateY(-3px) scale(1.1); /* Lift and scale effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: #5e35b1; /* Example hover border color */
+}
+
+/* --- Links Box --- */
+#my-unique-circle-menu .menu-links {
+  position: absolute;
+  top: 80px; /* Position below the toggle */
+  left: 50%; /* Center relative to the toggle's container */
+  transform: translateX(-50%) scale(0); /* Start scaled down and centered */
+  transform-origin: top center; /* Scale from top center */
+  width: 340px;
+  background-color: rgba(32, 0, 0, 0.97); /* Dark, slightly transparent background */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 15px; /* Adjusted padding */
+  opacity: 0;
+  visibility: hidden;
+  max-height: calc(100vh - 120px); /* Limit height based on viewport */
+  overflow-y: auto;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0s linear 0.4s; /* Delay visibility hide */
+  /* display: none; - Not needed with visibility/opacity */
+  z-index: 1000;
+}
+
+
+#my-unique-circle-menu .menu-links.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1); /* Scale up when active */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease, visibility 0s linear 0s; /* Show visibility immediately */
+  z-index: 1002; /* Above categories menu */
+}
+
+/* --- Links Title (Inside Links Box) --- */
+#my-unique-circle-menu .menu-links .links-title {
+  font-size: 1.2em; /* Adjusted size */
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+  animation: fadeInUp 0.6s ease-out forwards; /* Slightly faster animation */
+  color: #fff;
+  padding: 8px 12px; /* Adjusted padding */
+  border-radius: 8px;
+  position: relative; /* For pseudo-element positioning */
+  z-index: 1;
+  background-color: rgba(0,0,0,0.2); /* Subtle background */
+  overflow: hidden; /* Keep border animation contained */
+}
+
+#my-unique-circle-menu .menu-links .links-title i {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+/* Animated border for links title */
+#my-unique-circle-menu .menu-links .links-title::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background-size: 400% 400%;
+  z-index: -1;
+  border-radius: 10px; /* Slightly larger than parent */
+  animation: Gradient 5s ease infinite;
+  /* Gradient background image set by specific gradient classes below */
+}
+
+/* Gradient classes for the ::before pseudo-element's background */
+/* (These remain the same as your provided styles) */
+#my-unique-circle-menu .menu-links .links-title.gradient-1::before { background-image: linear-gradient(90deg, #ff5733, #ffcc00, #33ff57, #00ccff, #cc33ff, #ff5733, #ffcc00); }
+#my-unique-circle-menu .menu-links .links-title.gradient-2::before { background-image: linear-gradient(90deg, #3366ff, #cc3399, #ff3366, #ff6600, #ffff33, #3366ff, #cc3399); }
+/* ... (rest of your gradient classes for the border) ... */
+#my-unique-circle-menu .menu-links .links-title.gradient-12::before { background-image: linear-gradient(90deg, #cc3399, #ff3366, #ff6600, #ffff33, #3366ff, #cc3399, #ff3366); }
+
+
+/* --- Individual Links Styling --- */
+#my-unique-circle-menu .links-content {
+    margin-top: 10px; /* Space below title */
+}
+
+#my-unique-circle-menu .links-content .links {
+    display: none; /* Hide link sections by default */
+}
+
+#my-unique-circle-menu .links-content a.outer-cont {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  position: relative;
+  color: #f0f0f0; /* Lighter text color */
+  transition: all 0.3s ease;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7); /* Slightly softer shadow */
+  margin-bottom: 8px; /* Reduced margin */
+  padding: 10px 15px;
+  border-radius: 8px; /* Consistent radius */
+  text-decoration: none;
+  overflow: hidden;
+  border: none;
+  /* Gradient background applied via specific classes */
+  box-shadow: inset 0px 1px 3px rgba(255, 255, 255, 0.2),
+              inset 0px -10px 15px rgba(0, 0, 0, 0.4),
+              0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Hover/Active Effects for Links */
+#my-unique-circle-menu .links-content a.outer-cont::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9px; /* Match parent + 1px */
+    filter: blur(0);
+    z-index: -1;
+    box-shadow: none;
+    background: conic-gradient(#ffffff1a 80deg, #ffffff33, #ffffff44, #ffffff1a 280deg); /* Subtler conic gradient */
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#my-unique-circle-menu .links-content a.outer-cont:hover {
+     transform: translateY(-2px) scale(1.01); /* Slight lift and scale */
+     color: #fff; /* Brighten text on hover */
+     box-shadow: inset 0px 1px 3px rgba(255, 255, 255, 0.3),
+                 inset 0px -12px 18px rgba(0, 0, 0, 0.5),
+                 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+#my-unique-circle-menu .links-content a.outer-cont:hover::before {
+    filter: blur(8px); /* Softer blur */
+    opacity: 0.4;
+}
+
+#my-unique-circle-menu .links-content a.outer-cont:active {
+    transform: translateY(0px) scale(1); /* Press down effect */
+    box-shadow: inset 0px 1px 4px rgba(255, 255, 255, 0.4),
+                inset 0px -8px 12px rgba(0, 0, 0, 0.6),
+                0px 1px 3px rgba(0, 0, 0, 0.5);
+}
+#my-unique-circle-menu .links-content a.outer-cont:active::before {
+    filter: blur(4px);
+    opacity: 0.6;
+}
+
+/* Link Image */
+#my-unique-circle-menu .links-content a.outer-cont img {
+  width: 24px; /* Slightly smaller */
+  height: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-radius: 4px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Link Text Span */
+#my-unique-circle-menu .links-content a.outer-cont span {
+     position: relative;
+     z-index: 1;
+     flex-grow: 1;
+     white-space: nowrap;     /* Prevent text wrapping */
+     overflow: hidden;        /* Hide overflow */
+     text-overflow: ellipsis; /* Add ellipsis (...) for overflow */
+}
+
+/* --- Manual Color Gradients per Link Category --- */
+/* (These remain the same as your provided styles) */
+#my-unique-circle-menu .links-content .class-1-5 > a:nth-child(1) { background: linear-gradient(90deg, #ffc107, #ff9800, #ff5722); }
+#my-unique-circle-menu .links-content .class-1-5 > a:nth-child(2) { background: linear-gradient(90deg, #4caf50, #8bc34a, #cddc39); }
+/* ... (rest of your manual gradient classes) ... */
+#my-unique-circle-menu .links-content .vaidik-links > a:nth-child(2) { background: linear-gradient(90deg, #fff9c4, #fff59d, #fff176); }
+
+/* --- Custom Scrollbar for Links Box --- */
+#my-unique-circle-menu .menu-links::-webkit-scrollbar { width: 6px; }
+#my-unique-circle-menu .menu-links::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); border-radius: 10px; }
+#my-unique-circle-menu .menu-links::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; border: 1px solid transparent; background-clip: content-box; }
+#my-unique-circle-menu .menu-links::-webkit-scrollbar-thumb:hover { background-color: rgba(255, 255, 255, 0.5); }
+
+
+/* --- Responsive Adjustments for Circle Menu --- */
+@media (max-width: 768px) {
+    #my-unique-circle-menu .circle-menu-container {
+        left: auto; /* Remove fixed left position */
+        right: 10px; /* Position from right */
+        transform: none; /* Reset transform */
+    }
+     #my-unique-circle-menu .menu-categories,
+     #my-unique-circle-menu .menu-links {
+         left: auto; /* Reset left */
+         right: 0; /* Align to the right edge of the container */
+         transform: translateX(0) scale(0); /* Adjust transform origin if needed */
+         transform-origin: top right; /* Scale from top right */
+     }
+     #my-unique-circle-menu .menu-categories.active,
+     #my-unique-circle-menu .menu-links.show {
+          transform: translateX(0) scale(1); /* Adjust transform origin if needed */
+     }
+
+    #my-unique-circle-menu .menu-categories {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+        width: 240px; /* Adjust width for 3 columns */
+    }
+     #my-unique-circle-menu .menu-links {
+         width: 280px; /* Adjust width */
+         max-height: calc(100vh - 100px); /* Adjust max height */
+     }
+}
+
+@media (max-width: 480px) {
+     #my-unique-circle-menu .menu-toggle {
+         width: 50px;
+         height: 50px;
+     }
+     #my-unique-circle-menu .menu-categories,
+     #my-unique-circle-menu .menu-links {
+         top: 70px; /* Adjust top position */
+     }
+    #my-unique-circle-menu .menu-categories {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+        width: 160px; /* Adjust width for 2 columns */
+        gap: 4px;
+    }
+    #my-unique-circle-menu .menu-categories .category {
+        width: 60px;
+        height: 60px;
+        font-size: 1em;
+    }
+     #my-unique-circle-menu .menu-links {
+         width: 240px; /* Further adjust width */
+         padding: 10px;
+     }
+     #my-unique-circle-menu .menu-links .links-title {
+         font-size: 1em;
+         padding: 6px 10px;
+     }
+     #my-unique-circle-menu .links-content a.outer-cont {
+         font-size: 0.9rem;
+         padding: 8px 12px;
+     }
+     #my-unique-circle-menu .links-content a.outer-cont img {
+         width: 20px;
+         height: 20px;
+         margin-right: 8px;
+     }
+}
+
+
 /* =====================================
    TOC और हाइलाइट स्टाइल्स v3.2 (Namespaced)
-   विवरण: थीम टकराव से बचने के लिए #toc-container से नेम्सपेस्ड
    ===================================== */
 
-/* --- रंग वेरिएबल्स (इस मॉड्यूल के लिए विशिष्ट) --- */
-/* :root सेलेक्टर यहाँ अनावश्यक है क्योंकि ये वेरिएबल्स केवल
-   #toc-container या ग्लोबल हाइलाइट रूल्स द्वारा उपयोग किए जाएंगे।
-   लेकिन स्पष्टता के लिए इन्हें रखना ठीक है। */
+/* --- रंग वेरिएबल्स (TOC Module) --- */
 :root {
   --toc-bg-start: #fff0f5;         /* लैवेंडर ब्लश */
   --toc-bg-end: #fffacd;           /* लेमन शिफॉन */
@@ -35,7 +418,7 @@
   --button-glow: rgba(255, 99, 71, 0.7); /* बटन ग्लो रंग */
 }
 
-/* --- एनिमेशन्स (इस मॉड्यूल के लिए विशिष्ट) --- */
+/* --- एनिमेशन्स (TOC Module) --- */
 @keyframes tocFadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes tocGradientShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 @keyframes buttonPulseGlow { 0%{box-shadow:0 0 6px var(--button-glow), 0 0 12px var(--button-glow);transform:scale(1)} 50%{box-shadow:0 0 12px var(--button-glow), 0 0 24px var(--button-glow), 0 0 36px var(--button-glow);transform:scale(1.03)} 100%{box-shadow:0 0 6px var(--button-glow), 0 0 12px var(--button-glow);transform:scale(1)} }
@@ -107,27 +490,50 @@
 #toc-container #toc a { text-decoration: none; color: var(--toc-link-color); transition: color 0.25s ease, transform 0.25s ease, background-color 0.3s ease, box-shadow 0.3s ease; display: flex; align-items: center; padding: 8px 12px; border-radius: 4px; font-weight: 500; position: relative; overflow: hidden; }
 #toc-container #toc a:hover { color: var(--toc-list-hover-text) !important; background-color: var(--toc-list-hover-bg); box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); transform: translateX(4px) scale(1.01); }
 
-/* --- Font Awesome Icon Styling --- */
+/* --- Font Awesome Icon Styling (TOC) --- */
 #toc-container #toc a i[class*="fa-"] { margin-right: 12px; font-size: 1.15em; width: 1.3em; text-align: center; transition: transform 0.35s cubic-bezier(0.68, -0.55, 0.27, 1.55), color 0.3s ease; flex-shrink: 0; }
 #toc-container #toc a:hover i[class*="fa-"] { transform: rotate(10deg) scale(1.2); }
-/* रंगीन आइकन */
+/* Colored Icons (TOC) */
 #toc-container #toc li:nth-child(5n+1) a i { color: #1e90ff; }
 #toc-container #toc li:nth-child(5n+2) a i { color: #32cd32; }
 #toc-container #toc li:nth-child(5n+3) a i { color: #ff4500; }
 #toc-container #toc li:nth-child(5n+4) a i { color: #8a2be2; }
 #toc-container #toc li:nth-child(5n+5) a i { color: #ff69b4; }
 
-/* --- Highlight Styles (ये ग्लोबल रहेंगे) --- */
-.highlight-target { background-color: var(--highlight-bg) !important; box-shadow: 0 0 0 2px var(--highlight-border) !important; border-radius: 5px !important; padding: 4px 8px !important; margin: 0 !important; animation: highlightPulse 1.6s infinite ease-in-out !important; color: #8b4513 !important; display: inline-block !important; width: auto !important; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
-.highlight-content { background-color: var(--content-highlight-bg) !important; transition: background-color 0.4s ease-in-out !important; border-radius: 5px !important; padding: 12px 18px !important; margin-top: 8px !important; margin-bottom: 8px !important; box-shadow: 0 2px 8px rgba(218, 165, 32, 0.15) !important; display: block !important; }
+/* --- Highlight Styles (Global Scope OK) --- */
+/* These styles target elements directly, not namespaced under #toc-container */
+.highlight-target {
+  background-color: var(--highlight-bg) !important;
+  box-shadow: 0 0 0 2px var(--highlight-border) !important;
+  border-radius: 5px !important;
+  padding: 4px 8px !important;
+  margin: 0 !important; /* Prevent margin collapse issues */
+  animation: highlightPulse 1.6s infinite ease-in-out !important;
+  color: #8b4513 !important; /* Darker color for better contrast */
+  display: inline-block !important; /* Or block depending on element */
+  width: auto !important; /* Avoid forcing width */
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.highlight-content {
+  background-color: var(--content-highlight-bg) !important;
+  transition: background-color 0.4s ease-in-out !important;
+  border-radius: 5px !important;
+  padding: 12px 18px !important;
+  margin-top: 8px !important;
+  margin-bottom: 8px !important;
+  box-shadow: 0 2px 8px rgba(218, 165, 32, 0.15) !important;
+  display: block !important; /* Ensure block display for spacing */
+}
 
-/* --- प्रतिक्रियात्मक समायोजन --- */
+/* --- Responsive Adjustments (TOC Module) --- */
 @media(max-width: 768px) {
-    #toc-container #toc ul { column-count: 1; column-rule: none; animation-play-state: paused; }
+    #toc-container #toc ul { column-count: 1; column-rule: none; animation: none; /* Pause gradient animation */ background-image: linear-gradient(135deg, var(--toc-list-gradient-1), var(--toc-list-gradient-2), var(--toc-list-gradient-3)); background-size: 100% 100%; } /* Static gradient */
     #toc-container #toc { padding: 15px; }
-    #toc-container #toc h2 { font-size: 1.15em; }
+    #toc-container #toc h2 { font-size: 1.15em; margin-bottom: 15px; padding-bottom: 8px; }
     #toc-container #toc li.toc-level-3 { margin-left: 5px; padding-left: 12px; }
     #toc-container #toc a { padding: 6px 10px; }
 }
-
-/* ===== TOC और हाइलाइट स्टाइल्स v3.2 (Namespaced) - END ===== */
+/* ======================================== */
+/* === Widget 2: TOC & Highlight CSS END === */
+/* ======================================== */
