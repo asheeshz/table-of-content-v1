@@ -1,5 +1,5 @@
 // --------------------------------------------------
-// विजेट 2: टेबल ऑफ कंटेंट्स (TOC) लॉजिक
+// version-1: टेबल ऑफ कंटेंट्स (TOC) लॉजिक
 // --------------------------------------------------
 (function() { // Start IIFE for TOC widget
 
@@ -203,4 +203,4 @@
         console.error("TOC Script Error:", error);
     }
 
-})(); // End IIFE for TOC widget
+})(); // End IIFE for version-01 TOC widget
